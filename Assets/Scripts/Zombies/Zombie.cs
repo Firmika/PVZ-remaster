@@ -55,7 +55,8 @@ public class Zombie : MonoBehaviour
     {
         isWalking = false;
         isDead = true;
-        animator.SetTrigger("Die");
+        animator.SetTrigger("Die"); 
+        GameManager.instance.ZombieDied(this.gameObject);
     }
 
     public void DieAniOver()

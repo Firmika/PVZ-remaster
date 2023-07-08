@@ -10,13 +10,12 @@ public class SunFlower : Plant
     public Vector3 deviation_left = new Vector3(40, 0, 0);
     public Vector3 deviation_right = new Vector3(60, 0, 0);
     private float bornTimer = 0;
-    private Animator animator;
+    
     private bool isGenerating = false;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        curHP = HP;
-        animator = GetComponent<Animator>();
+        base.Start();
     }
 
     // Update is called once per frame

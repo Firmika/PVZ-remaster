@@ -8,16 +8,18 @@ public class PeaShooter : Plant
     public float damage = 10f;
     public GameObject bullet;
     public Transform bulletPosition;
-    private float timer=0;
-    void Start() {
-        curHP = HP;
+    private float timer = 0;
+    protected override void Start()
+    {
+        base.Start();
     }
-    
+
     void Update()
     {
         timer += Time.deltaTime;
-        if ( timer>=attackInterval ) {
-            Instantiate(bullet, bulletPosition.position,Quaternion.identity);
+        if (timer >= attackInterval)
+        {
+            Instantiate(bullet, bulletPosition.position, Quaternion.identity);
             timer = 0;
         }
     }

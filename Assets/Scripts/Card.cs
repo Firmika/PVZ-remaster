@@ -35,7 +35,7 @@ public class Card : MonoBehaviour
 
     private void UpdateDarkBg()
     {
-        if (isReady && GameManager.instance.sunlightNum >= sunlightAmout)
+        if (isReady && GameManager.instance.initSunlightNum >= sunlightAmout)
             darkBg.SetActive(false);
         else
             darkBg.SetActive(true);
@@ -90,14 +90,14 @@ public class Card : MonoBehaviour
         GameObject newPlantObject = Instantiate(plantPrefab);
         newPlantObject.transform.parent = parent;
         newPlantObject.transform.localPosition = Vector3.zero;
-        GameManager.instance.sunlightNum -= sunlightAmout;
+        GameManager.instance.initSunlightNum -= sunlightAmout;
         isReady = false;
         timer = 0;
     }
 
     private bool isPlantable()
     {
-        return sunlightAmout <= GameManager.instance.sunlightNum && isReady;
+        return sunlightAmout <= GameManager.instance.initSunlightNum && isReady;
     }
 
     private Vector3 TranslateScreenToWorld(Vector3 ScreenPos)

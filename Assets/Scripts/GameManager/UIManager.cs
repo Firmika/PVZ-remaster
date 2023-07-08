@@ -15,6 +15,6 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        sunlightNumText.GetComponent<Text>().text = GameManager.instance.sunlightNum.ToString();
+        sunlightNumText.GetComponent<Text>().text = GameManager.instance.initSunlightNum.ToString();
     }
 }

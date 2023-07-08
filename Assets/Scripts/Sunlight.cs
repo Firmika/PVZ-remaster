@@ -17,7 +17,7 @@ public class Sunlight : MonoBehaviour
     }
 
     private void OnMouseDown() {
-        GameManager.instance.sunlightNum += sunlightAmout;
+        GameManager.instance.initSunlightNum += sunlightAmout;
         Destroy(this.gameObject);
     }
 
