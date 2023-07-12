@@ -7,16 +7,30 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public int initSunlightNum;
+    public string curLevelName = "1-2";
     public GameObject[] bornParents;
     public GameObject[] zombiePrefab;
-    // public float bornZombieInterval = 8;
-    // public bool isBornZombie = true;
-    protected bool isStart = false;
-    protected List<GameObject> curZombieList = new List<GameObject>();
-    protected LevelData levelData;
+
+    private bool isStart = false;
+
+    private int curSunlightNum;
+    private List<GameObject> curZombieList = new List<GameObject>();
+    private LevelData levelData;
     private int curProgress;
     private int curZombieIndex;
     private int zombieOrderIndex;
+    public bool IsStart { get => isStart; }
+    public int CurSunlightNum
+    {
+        get => curSunlightNum;
+        set
+        {
+            curSunlightNum = value >= 0 ? value : 0;
+            UIManager.instance.ChangeSunlightText(curSunlightNum);
+        }
+    }
+    public int ProgressTot { get => levelData.ProgressNum; }
+    public int CurItemTot { get => levelData[curProgress].ItemNum; }
     void Start()
     {
         instance = this;
@@ -30,9 +44,10 @@ public class GameManager : MonoBehaviour
 
     IEnumerator LoadTable()
     {
-        ResourceRequest request = Resources.LoadAsync("Level1-1");
+        ResourceRequest request = Resources.LoadAsync("Level" + curLevelName);
         yield return request;
         levelData = request.asset as LevelData;
+        // 完成读取，开始游戏
         Startgame();
     }
 
@@ -41,18 +56,23 @@ public class GameManager : MonoBehaviour
         isStart = true;
         zombieOrderIndex = 0;
         curProgress = 0;
+        CurSunlightNum = initSunlightNum;
+        UIManager.instance.InitProgressBar();
+        AudioManager.instance.PlayBGM(Globals.BGM1);
+        AudioManager.instance.PlaySE(Globals.ZombieBornBegin);
         StartBornProgress();
     }
 
+    // 生成单波僵尸
     void StartBornProgress()
     {
-        for (curZombieIndex = 0; curZombieIndex < levelData.ProgressAt(curProgress).ItemNum; curZombieIndex++)
+        for (curZombieIndex = 0; curZombieIndex < levelData[curProgress].ItemNum; curZombieIndex++)
             StartCoroutine(TableBornZombie());
     }
 
     IEnumerator TableBornZombie()
     {
-        LevelItem curItem = levelData.ItemAt(curProgress, curZombieIndex);
+        LevelItem curItem = levelData[curProgress][curZombieIndex];
         // 在对应时间产生僵尸
         yield return new WaitForSeconds(curItem.createTime);
         // 僵尸在对应行号生成
@@ -63,36 +83,33 @@ public class GameManager : MonoBehaviour
         newZombie.transform.localPosition = Vector3.zero;
         // 后生成的僵尸处于上级
         newZombie.transform.GetComponent<SpriteRenderer>().sortingOrder = zombieOrderIndex++;
-        // 加入僵尸列表
+        // 将新僵尸加入僵尸列表
         curZombieList.Add(newZombie);
     }
 
-    public void ZombieDied(GameObject zombie) {
+    // 僵尸死亡时调用以通知GameMagager
+    public void ZombieDied(GameObject zombie)
+    {
         curZombieList.Remove(zombie);
-        if ( curZombieList.Count<=0 ) {
-            if ( curProgress>=levelData.ProgressNum-1 ) {
+        UIManager.instance.ChangeProgress(curProgress, curZombieList.Count);
+        if (curZombieList.Count <= 0)
+        {
+            if (curProgress >= levelData.ProgressNum - 1)
+            {
                 // TODO: 关卡胜利
+                AudioManager.instance.StopBGM();
+                AudioManager.instance.PlaySE(Globals.WinMusic);
                 return;
             }
             // 刷新下一波僵尸
             curProgress++;
+            // TODO: 一大波僵尸正在来袭
+            if (curProgress+1 < ProgressTot)
+                AudioManager.instance.PlaySE(Globals.HugeWave);
+            else
+                AudioManager.instance.PlaySE(Globals.FinalWave);
             StartBornProgress();
         }
     }
 
-    // // 定时生成僵尸
-    // void StartTimerBornZomibe()
-    // {
-    //     isBornZombie = true;
-    //     StartCoroutine(TimerBornZombie());
-    // }
-    // IEnumerator TimerBornZombie()
-    // {
-    //     yield return new WaitForSeconds(bornZombieInterval);
-    //     int index = Random.Range(0, bornParents.Length);
-    //     GameObject newZombie = Instantiate(zombiePrefab);
-    //     newZombie.transform.parent = bornParents[index].transform;
-    //     newZombie.transform.localPosition = Vector3.zero;
-    //     if (isBornZombie) StartCoroutine(TimerBornZombie());
-    // }
 }

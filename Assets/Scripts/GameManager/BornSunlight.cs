@@ -9,15 +9,9 @@ public class BornSunlight : MonoBehaviour
     
     public Vector3 range_left;
     public Vector3 range_right;
-    private float timer = 0;
 
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if ( timer > duration ) {
-            BornNewSunlight();
-            timer = 0;
-        }
+    void Start() {
+        InvokeRepeating("BornNewSunlight", duration, duration);
     }
 
     private void BornNewSunlight() {

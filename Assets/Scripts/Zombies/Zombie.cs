@@ -55,7 +55,7 @@ public class Zombie : MonoBehaviour
     {
         isWalking = false;
         isDead = true;
-        animator.SetTrigger("Die"); 
+        animator.SetTrigger("Die");
         GameManager.instance.ZombieDied(this.gameObject);
     }
 
@@ -83,6 +83,7 @@ public class Zombie : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackInterval)
             {
+                AudioManager.instance.PlaySE(Globals.ZombieChomp);
                 other.GetComponent<Plant>().GetDamage(damage);
                 attackTimer = 0;
             }

@@ -19,8 +19,13 @@ public class PeaShooter : Plant
         timer += Time.deltaTime;
         if (timer >= attackInterval)
         {
-            Instantiate(bullet, bulletPosition.position, Quaternion.identity);
+            Attack();
             timer = 0;
         }
+    }
+
+    void Attack() {
+        AudioManager.instance.PlaySE(Globals.Shoot);
+        Instantiate(bullet, bulletPosition.position, Quaternion.identity);
     }
 }
