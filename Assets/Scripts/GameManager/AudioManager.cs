@@ -47,12 +47,10 @@ public class AudioManager : MonoBehaviour
     public void PlaySE(string path, float volume = 1.0f)
     {
         // PlayOneShot可以叠加播放
-        audioSource.PlayOneShot(GetAudio(path),volume);
+        audioSource.PlayOneShot(GetAudio(path), volume);
     }
-
     public void PlaySE(AudioSource audioSource, string path, float volume = 1f)
     {
-        audioSource.PlayOneShot(GetAudio(path),volume);
+        audioSource.PlayOneShot(GetAudio(path), volume);
     }
-
 }

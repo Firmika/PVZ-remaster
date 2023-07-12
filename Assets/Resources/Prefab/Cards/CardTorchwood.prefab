@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e57df3004f363d409d93d6713a95d73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunlightAmout: 75
+  sunlightAmout: 175
   duration: 10
   plantPrefab: {fileID: 8151580197119552489, guid: d2821192becc47941b68746d8702c181, type: 3}
   staticPlantPrefab: {fileID: 5070073064404718847, guid: 1eaaee23e8fc0a04c99cfd47982ee3e6, type: 3}

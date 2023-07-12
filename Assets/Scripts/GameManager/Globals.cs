@@ -1,3 +1,7 @@
+public enum Direction
+{
+    Left, Right, Up, Down,
+}
 public class Globals
 {
     // 背景音乐路径
@@ -30,6 +34,10 @@ public class Globals
     // 僵尸咀嚼
     public const string ZombieChomp = "Audio/Sound/chomp";
     public const string ZombieChompSoft = "Audio/Sound/chompsoft";
+    // 僵尸吞咽（植物死亡）
+    public const string ZombieGulp = "Audio/Sound/gulp";
+    // 伽刚特尔砸地
+    public const string GargantuarThump = "Audio/Sound/gargantuar_thump";
     // 一大波僵尸正在来袭
     public const string HugeWave = "Audio/Sound/hugewave";
     // 最后一波
@@ -45,9 +53,10 @@ public class Globals
     // 冰冻
     public const string Frozen = "Audio/Sound/frozen";
     // 发射子弹
-    public const string Shoot = "Audio/Sound/kernelpult2";
+    public const string Shoot = "Audio/Sound/throw";
+    public const string Shoot2 = "Audio/Sound/throw2";
     // 子弹击中
-    public const string BulletHit = "Audio/Sound/kernelpult";
+    public const string BulletHit = "Audio/Sound/splat";
     public const string FirePea = "Audio/Sound/firepea";
     // 土豆地雷爆炸
     public const string PotatoMineBomb = "Audio/Sound/potato_mine";

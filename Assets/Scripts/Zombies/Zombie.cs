@@ -11,6 +11,7 @@ public class Zombie : MonoBehaviour
     public float lostHeadHP = 50;
     public float attackInterval = 0.5f;
     public float damage = 20f;
+    private int line = -1;
     private Animator animator;
     private GameObject head;
     private bool isWalking;
@@ -18,6 +19,22 @@ public class Zombie : MonoBehaviour
     private bool isDead;
     private float curHP;
     private float attackTimer;
+
+    public int Line {
+        get => line;
+        set {
+            if (line!=-1) {
+                Debug.LogWarning("僵尸已经确定了出生点");
+                return;
+            }
+            line = value;
+        }
+    }
+    
+    public void SetLine(int line) {
+        Line = line;
+    }
+
     void Start()
     {
         isWalking = true;
@@ -95,6 +112,9 @@ public class Zombie : MonoBehaviour
         if (isDead) return;
         if (other.tag == "Plant")
         {
+            // 僵尸吞咽
+            // Todo: bug待修复-被铲掉同样会播放吞咽动画的bug
+            AudioManager.instance.PlaySE(Globals.ZombieGulp);
             isWalking = true;
             animator.SetBool("Walk", true);
             attackTimer = 0;

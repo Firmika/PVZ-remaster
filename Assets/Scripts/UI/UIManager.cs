@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
 
     public void ChangeProgress(int curProgress, int zombieRemain)
     {
+        if (curProgress == GameManager.instance.ProgressTot) return;
         progressPanel.GetComponent<ProgressPanel>().ChangeProgress(curProgress, zombieRemain);
     }
 

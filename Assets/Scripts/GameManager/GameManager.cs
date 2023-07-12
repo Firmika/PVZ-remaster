@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
         GameObject newZombie = Instantiate(zombiePrefab[curItem.zombieType]);
         newZombie.transform.parent = bornParents[index].transform;
         newZombie.transform.localPosition = Vector3.zero;
+        newZombie.GetComponent<Zombie>().Line = index;
         // 后生成的僵尸处于上级
         newZombie.transform.GetComponent<SpriteRenderer>().sortingOrder = zombieOrderIndex++;
         // 将新僵尸加入僵尸列表
@@ -104,12 +105,64 @@ public class GameManager : MonoBehaviour
             // 刷新下一波僵尸
             curProgress++;
             // TODO: 一大波僵尸正在来袭
-            if (curProgress+1 < ProgressTot)
-                AudioManager.instance.PlaySE(Globals.HugeWave);
-            else
-                AudioManager.instance.PlaySE(Globals.FinalWave);
+            AudioManager.instance.PlaySE(Globals.HugeWave);
+            if (curProgress + 1 == ProgressTot)
+            {
+                // TODO: 最后一波
+            }
             StartBornProgress();
         }
     }
 
+    public bool HasZombie(int line, Vector3 position, Direction direction = Direction.Right)
+    {
+        if (direction == Direction.Up || direction == Direction.Down)
+            return false;
+        foreach (GameObject zombie in curZombieList)
+        {
+            if (zombie.GetComponent<Zombie>().Line != line) continue;
+            switch (direction)
+            {
+                case Direction.Left:
+                    if (zombie.transform.position.x < position.x)
+                        return true;
+                    break;
+                case Direction.Right:
+                    if (zombie.transform.position.x > position.x)
+                        return true;
+                    break;
+            }
+        }
+        return false;
+    }
+
+    public List<GameObject> GetZombies(int line)
+    {
+        List<GameObject> zombieLineList = new List<GameObject>();
+        foreach (GameObject zombie in curZombieList)
+        {
+            if (zombie.GetComponent<Zombie>().Line == line)
+                zombieLineList.Add(zombie);
+        }
+        return zombieLineList;
+    }
+
+    // 返回植物同行最接近的僵尸
+    public GameObject GetClosestZombie(GameObject plant)
+    {
+        GameObject closestZombie = null;
+        Plant plantComponent = plant.GetComponent<Plant>();
+        foreach (GameObject zombie in GetZombies(plantComponent.Line))
+        {
+            if (closestZombie == null)
+            {
+                closestZombie = zombie;
+                continue;
+            }
+            if (Vector2.Distance(plant.transform.position, zombie.transform.position)
+                < Vector2.Distance(plant.transform.position, closestZombie.transform.position))
+                closestZombie = zombie;
+        }
+        return closestZombie;
+    }
 }

@@ -92,9 +92,18 @@ public class Card : MonoBehaviour
         // 播放音效
         AudioManager.instance.PlaySE(Globals.Plant);
 
+        // 实例化预制体
         GameObject newPlantObject = Instantiate(plantPrefab);
         newPlantObject.transform.parent = parent;
         newPlantObject.transform.localPosition = Vector3.zero;
+        
+        // 更新植物行列号
+        Plant newPlant = newPlantObject.GetComponent<Plant>();
+        Land parentLand = parent.GetComponent<Land>();
+        newPlant.SetPosition(parentLand.GetLine(),parentLand.GetColumn());
+        // Debug.Log(newPlant.line + " " + newPlant.column);
+
+        // 扣除阳光数量并更新卡片状态
         GameManager.instance.CurSunlightNum -= sunlightAmout;
         isReady = false;
         timer = 0;
