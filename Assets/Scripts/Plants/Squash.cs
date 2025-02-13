@@ -22,7 +22,7 @@ public class Squash : Plant
 
     private void UpdateAttackState()
     {
-        closestZombie = GameManager.instance.GetClosestZombie(this.gameObject);
+        closestZombie = GameManager.Instance.GetClosestZombie(this.gameObject);
         if (closestZombie == null || Vector2.Distance(transform.position, closestZombie.transform.position) > attackDist)
             return;
         // 监测到僵尸并发动攻击
@@ -30,7 +30,7 @@ public class Squash : Plant
         CancelInvoke();
         // 不可被僵尸啃食
         GetComponent<Collider2D>().enabled = false;
-        AudioManager.instance.PlaySE(Globals.SquashHmm);
+        AudioManager.Instance.PlaySE(Globals.SquashHmm);
         // 僵尸在左边
         if (transform.position.x > closestZombie.transform.position.x)
         {
@@ -70,9 +70,9 @@ public class Squash : Plant
 
     public void Attack()
     {
+        AudioManager.Instance.PlaySE(Globals.GargantuarThump);
         if (closestZombie == null)
             return;
-        AudioManager.instance.PlaySE(Globals.GargantuarThump);
         closestZombie.GetComponent<Zombie>().GetDamage(damage);
     }
 

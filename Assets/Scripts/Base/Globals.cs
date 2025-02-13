@@ -62,6 +62,8 @@ public class Globals
     public const string PotatoMineBomb = "Audio/Sound/potato_mine";
     // 樱桃炸弹爆炸
     public const string CherryBomb = "Audio/Sound/cherrybomb";
+    // 火爆辣椒爆炸
+    public const string Jalapeno = "Audio/Sound/jalapeno";
     // 倭瓜嗯？
     public const string SquashHmm = "Audio/Sound/squash_hmm";
 }

@@ -21,13 +21,13 @@ public class PeaShooter : Plant
     void Attack()
     {
         if (!isAttack) return;
-        AudioManager.instance.PlaySE(Globals.Shoot);
+        AudioManager.Instance.PlaySE(Globals.Shoot);
         Instantiate(bullet, bulletPosition.position, Quaternion.identity);
     }
 
     private void UpdateAttackState()
     {
-        if (GameManager.instance.HasZombie(Line, transform.position))
+        if (GameManager.Instance.HasZombie(Line, transform.position))
         {
             isAttack = true;
         }

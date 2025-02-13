@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public static AudioManager instance;
+    private static AudioManager instance;
+    public static AudioManager Instance
+    {
+        get {
+            if ( instance==null ) {
+                instance = FindObjectOfType(typeof(AudioManager)) as AudioManager;
+            }
+            return instance;
+        }
+    }
     // 用于播放音乐
     private AudioSource audioSource;
     private Dictionary<string, AudioClip> dictAudio;

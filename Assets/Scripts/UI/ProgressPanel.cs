@@ -17,7 +17,7 @@ public class ProgressPanel : MonoBehaviour
     private int progressNum;
     private float fillBarLength;
 
-    void Start()
+    void Awake()
     {
         progressBg = GameObject.Find("ProgressBg");
         progressPointer = GameObject.Find("ProgressPointer");
@@ -28,8 +28,8 @@ public class ProgressPanel : MonoBehaviour
     // 加载完成后初始化进度条
     public void InitProgressBar()
     {
-        progressNum = GameManager.instance.ProgressTot;
-        // progressNum = 3;
+        progressNum = GameManager.Instance.ProgressTot;
+        // progressNum = 2;
         fillBarLength = progressBg.GetComponent<RectTransform>().sizeDelta.x - 2 * progressOffset;
         InitProgressFlag();
         progressPointer.transform.SetAsLastSibling();
@@ -52,8 +52,8 @@ public class ProgressPanel : MonoBehaviour
 
     public void ChangeProgress(int curProgress, int zombieRemain)
     {
-        float prPortion = 1f / (GameManager.instance.ProgressTot - 1);
-        float percent = prPortion * curProgress + (1 - (float)zombieRemain / GameManager.instance.CurItemTot) * prPortion;
+        float prPortion = 1f / (GameManager.Instance.ProgressTot - 1);
+        float percent = prPortion * curProgress + (1 - (float)zombieRemain / GameManager.Instance.CurItemTot) * prPortion;
         RaiseFlag(curProgress);
         ChangeFillBar(percent);
         ChangeProgressPointer(curProgress, zombieRemain);
@@ -77,14 +77,14 @@ public class ProgressPanel : MonoBehaviour
 
     private void ChangeProgressPointer(int curProgress, int zombieRemain)
     {
-        if (curProgress == GameManager.instance.ProgressTot)
+        if (curProgress == GameManager.Instance.ProgressTot)
         {
             curProgress -= 1;
             zombieRemain = 0;
         }
         float perLength = fillBarLength / (progressNum - 1);
         float x = -progressOffset - perLength * curProgress
-                  - perLength * (1 - (float)zombieRemain / GameManager.instance.CurItemTot);
+                  - perLength * (1 - (float)zombieRemain / GameManager.Instance.CurItemTot);
         progressPointer.GetComponent<RectTransform>().anchoredPosition3D = new Vector3(x, 0, 0);
     }
 }

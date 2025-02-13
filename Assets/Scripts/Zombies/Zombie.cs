@@ -68,12 +68,20 @@ public class Zombie : MonoBehaviour
         head.SetActive(true);
     }
 
+    public void BoomDie()
+    {
+        isWalking = false;
+        isDead =true;
+        animator.SetTrigger("BoomDie");
+        GameManager.Instance.ZombieDied(this.gameObject);
+    }
+
     public void Die()
     {
         isWalking = false;
         isDead = true;
         animator.SetTrigger("Die");
-        GameManager.instance.ZombieDied(this.gameObject);
+        GameManager.Instance.ZombieDied(this.gameObject);
     }
 
     public void DieAniOver()
@@ -100,7 +108,7 @@ public class Zombie : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer >= attackInterval)
             {
-                AudioManager.instance.PlaySE(Globals.ZombieChomp);
+                AudioManager.Instance.PlaySE(Globals.ZombieChomp);
                 other.GetComponent<Plant>().GetDamage(damage);
                 attackTimer = 0;
             }
@@ -114,7 +122,7 @@ public class Zombie : MonoBehaviour
         {
             // 僵尸吞咽
             // Todo: bug待修复-被铲掉同样会播放吞咽动画的bug
-            AudioManager.instance.PlaySE(Globals.ZombieGulp);
+            AudioManager.Instance.PlaySE(Globals.ZombieGulp);
             isWalking = true;
             animator.SetBool("Walk", true);
             attackTimer = 0;

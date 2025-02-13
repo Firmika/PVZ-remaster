@@ -7,7 +7,7 @@ public class PeaBullet : Bullet
     protected override void DestroyBullet()
     {
         // Todo: 生成特效
-        AudioManager.instance.PlaySE(Globals.BulletHit);
+        AudioManager.Instance.PlaySE(Globals.BulletHit);
         base.DestroyBullet();
     }
 }

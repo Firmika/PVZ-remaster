@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160a6ed0fcf8adb4c8f7525fd871ec80, type: 3}
+  m_Name: CardInfo
+  m_EditorClassIdentifier: 
+  CardInfoList:
+  - plantID: 0
+    plantName: PeaShooter
+    description: 
+    cardPrefab: {fileID: 7357622648203647636, guid: 487614bee81dab048bc630c5709551d9, type: 3}
+  - plantID: 1
+    plantName: SunFlower
+    description: 
+    cardPrefab: {fileID: 5097678715693361350, guid: ab681b574add93045b961ce3408ea472, type: 3}
+  - plantID: 2
+    plantName: WallNut
+    description: 
+    cardPrefab: {fileID: 4575640497571342044, guid: 51265101dd8790047bd12d68bd41b668, type: 3}
+  - plantID: 3
+    plantName: Torchwood
+    description: 
+    cardPrefab: {fileID: 1810175218638892637, guid: 1359318805549d840acba349ad7daf98, type: 3}
+  - plantID: 4
+    plantName: Squash
+    description: 
+    cardPrefab: {fileID: 4575640497571342044, guid: d74163a08c23c914e9a6514828ba3d5c, type: 3}
+  - plantID: 5
+    plantName: Jalapeno
+    description: 
+    cardPrefab: {fileID: 7357622648203647636, guid: a399f0ae6c769d6499d4770d22cb5a42, type: 3}

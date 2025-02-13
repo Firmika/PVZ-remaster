@@ -13,21 +13,14 @@ public class Sunlight : MonoBehaviour
         StartCoroutine(DestroySunlight());
     }
 
-    IEnumerator DestroySunlight() 
+    IEnumerator DestroySunlight()
     {
         yield return new WaitForSeconds(destroyTime);
         Destroy(this.gameObject);
     }
-
     private void OnMouseDown() {
-        AudioManager.instance.PlaySE(Globals.Points);
-        GameManager.instance.CurSunlightNum += sunlightAmout;
+        AudioManager.Instance.PlaySE(Globals.Points);
+        GameManager.Instance.CurSunlightNum += sunlightAmout;
         Destroy(this.gameObject);
-    }
-
-    private Vector3 TranslateScreenToWorld(Vector3 ScreenPos)
-    {
-        Vector3 translatePos = Camera.main.ScreenToWorldPoint(ScreenPos);
-        return new Vector3(translatePos.x, translatePos.y, 0);
     }
 }

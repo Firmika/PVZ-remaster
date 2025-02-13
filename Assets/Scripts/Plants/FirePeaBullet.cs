@@ -8,7 +8,7 @@ public class FirePeaBullet : Bullet
     protected override void DestroyBullet()
     {
         Instantiate(destroyEffect,transform.position,Quaternion.identity);
-        AudioManager.instance.PlaySE(Globals.FirePea);
+        AudioManager.Instance.PlaySE(Globals.FirePea);
         base.DestroyBullet();
     }
 }

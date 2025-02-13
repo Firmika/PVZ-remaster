@@ -12,6 +12,7 @@ using System.Collections.Generic;
 public class StartUp
 {
     static string path = Application.dataPath + "/Editor/LevelData_Zombie.xlsx";
+    static string objPath = "Assets/Resources/TableData/";
     static string assetName = "Level";
     static string[] levelNames = { "1-1", "1-2" };
     static FileInfo fileInfo;
@@ -57,6 +58,6 @@ public class StartUp
             }
             curProgress.AddItem(levelItem);
         }
-        AssetDatabase.CreateAsset(levelData, "Assets/Resources/" + assetName + levelName + ".asset");
+        AssetDatabase.CreateAsset(levelData, objPath + assetName + levelName + ".asset");
     }
 }
